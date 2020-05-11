@@ -3,11 +3,12 @@ package response;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Storage {
 
     private static int currentId = 1;
-    private static HashMap<Integer, Activity> activities = new HashMap<Integer, Activity>();
+    private static ConcurrentHashMap<Integer, Activity> activities = new ConcurrentHashMap<Integer, Activity>();
 
 
     public static List<Activity> getAllActivities(){
@@ -31,6 +32,13 @@ public class Storage {
             return activities.get(id);
         }
         return null;
+    }
+
+    public static void delete(int id){
+        if (activities.containsKey(id)){
+        Activity activity = activities.remove(id);
+        activity = null;
+        }
     }
 
 }
