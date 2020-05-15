@@ -7,6 +7,8 @@ import response.Activity;
 import response.Storage;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -42,7 +44,7 @@ public class ActivityController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         activity.setName(name);
-        activity.setDay(day);
+
         return new  ResponseEntity(activity, HttpStatus.OK);
     }
 
@@ -53,11 +55,19 @@ public class ActivityController {
 
     @RequestMapping(
             value = "/activities/",
-            params = "day",
+            params = "name",
             method = GET)
     @ResponseBody
-    public List<Activity> list(@RequestParam("day") final String day){
-        return Storage.getAllActivities().stream().filter(a -> a.getDay().equals(day)).collect(Collectors.toList());
+    public List<Activity> list(@RequestParam("name") final String name){
+        return Storage.getAllActivities().stream()
+                .filter(a ->{
+                    Pattern pattern = Pattern.compile(name + "+.");
+                    Matcher matcher = pattern.matcher(a.getName());
+                    if (matcher.find())
+                        return true;
+                return false;}
+                    )
+                .collect(Collectors.toList());
     }
 
 }
