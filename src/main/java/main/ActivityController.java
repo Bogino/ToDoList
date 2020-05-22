@@ -25,19 +25,13 @@ public class ActivityController {
 
     @GetMapping("/activities/")
     public List<Activity> list(){
-        Iterable<Activity> activityIterable = activityRepository.findAll();
-        ArrayList<Activity> activities = new ArrayList<>();
-        for (Activity activity : activityIterable){
-            activities.add(activity);
-        }
-        return activities;
+        return (List<Activity>) activityRepository.findAll();
     }
 
     @PostMapping("/activities/")
     public int add(Activity activity){
 
-        Activity newActivity = activityRepository.save(activity);
-        return newActivity.getId();
+        return activityRepository.save(activity).getId();
     }
 
     @GetMapping("/activities/{id}")
@@ -75,14 +69,7 @@ public class ActivityController {
             method = GET)
     @ResponseBody
     public List<Activity> list(@RequestParam("name") final String name){
-        Iterable<Activity> activityIterable = activityRepository.findAll();
-        ArrayList<Activity> activities = new ArrayList<>();
-        for (Activity activity : activityIterable){
-            activities.add(activity);
-        }
-        return activities.stream()
-                .filter(a ->a.getName().contains(name))
-                .collect(Collectors.toList());
+       return activityRepository.findByNameContaining(name);
     }
 
 }
