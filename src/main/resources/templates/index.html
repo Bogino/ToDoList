@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Activity library</title>
+</head>
+<body>
+<h1>Дела (<span th:text="${activitiesCount}">0</span>)</h1>
+<br><br>
+<div id="activity-list">
+    <div th:each="activity : ${activities}">
+        <a href="#" class="activity-link" th:attr="data-id=${activity.id}" th:text="${activity.name}"></a>
+    </div>
+
+</div>
+</body>
+</html>
