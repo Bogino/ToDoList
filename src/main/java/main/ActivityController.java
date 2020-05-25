@@ -17,11 +17,19 @@ import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+
+
 @RestController
 public class ActivityController {
-
     @Autowired
-    private ActivityRepository activityRepository;
+    private final ActivityRepository activityRepository;
+
+    public ActivityController(ActivityRepository activityRepository){
+        this.activityRepository = activityRepository;
+
+    }
+
+
 
     @GetMapping("/activities/")
     public List<Activity> list(){

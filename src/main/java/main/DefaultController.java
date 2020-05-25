@@ -13,7 +13,7 @@ import java.util.Date;
 public class DefaultController {
 
     @Autowired
-    ActivityRepository activityRepository;
+    private ActivityRepository activityRepository;
 
     @RequestMapping("/")
     public String index(Model model){
