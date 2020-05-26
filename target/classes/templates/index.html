@@ -5,6 +5,12 @@
     <title>Activity library</title>
 </head>
 <body>
+<form action="/activities/" method="post" target="_self">
+    <h2>Добавление дела</h2>
+    <label>Название дела:</label>
+    <p><input type="text" name="name"></p>
+    <p><input type="submit" value="Отправить"></p>
+</form>
 <h1>Дела (<span th:text="${activitiesCount}">0</span>)</h1>
 <br><br>
 <div id="activity-list">
